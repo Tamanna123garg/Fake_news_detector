@@ -1,0 +1,120 @@
+{
+  "dataset": {
+    "rows": 5000,
+    "train_rows": 4000,
+    "test_rows": 1000,
+    "fake_share": 0.4418,
+    "features": [
+      "word_count",
+      "sentiment_score",
+      "exclamation_count",
+      "all_caps_pct"
+    ]
+  },
+  "models": {
+    "Logistic Regression": {
+      "accuracy": 0.734,
+      "precision": 0.7167,
+      "recall": 0.6584,
+      "f1": 0.6863,
+      "roc_auc": 0.8011,
+      "cv_accuracy_mean": 0.7267,
+      "cv_accuracy_std": 0.015
+    },
+    "Random Forest": {
+      "accuracy": 0.735,
+      "precision": 0.7164,
+      "recall": 0.6629,
+      "f1": 0.6886,
+      "roc_auc": 0.806,
+      "cv_accuracy_mean": 0.7208,
+      "cv_accuracy_std": 0.0129
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.739,
+      "precision": 0.7246,
+      "recall": 0.6606,
+      "f1": 0.6911,
+      "roc_auc": 0.8157,
+      "cv_accuracy_mean": 0.7343,
+      "cv_accuracy_std": 0.0104
+    },
+    "Ensemble (soft vote)": {
+      "accuracy": 0.742,
+      "precision": 0.7244,
+      "recall": 0.6719,
+      "f1": 0.6972,
+      "roc_auc": 0.815,
+      "cv_accuracy_mean": 0.7325,
+      "cv_accuracy_std": 0.0113
+    }
+  },
+  "best_model": "Ensemble (soft vote)",
+  "test": {
+    "accuracy": 0.742,
+    "precision": 0.7244,
+    "recall": 0.6719,
+    "f1": 0.6972,
+    "roc_auc": 0.815,
+    "cv_accuracy_mean": 0.7325,
+    "cv_accuracy_std": 0.0113,
+    "confusion_matrix": {
+      "labels": [
+        "REAL",
+        "FAKE"
+      ],
+      "matrix": [
+        [
+          445,
+          113
+        ],
+        [
+          145,
+          297
+        ]
+      ]
+    }
+  },
+  "latency_ms_per_prediction": 57.94,
+  "original_500_rows_only_cv_accuracy": {
+    "mean": 0.554,
+    "std": 0.0196
+  },
+  "permutation_importance": {
+    "Article length (words)": 0.0464,
+    "Sentiment polarity": 0.066,
+    "Exclamation marks": 0.0476,
+    "ALL-CAPS words (share)": 0.0619
+  },
+  "fairness_by_political_lean": [
+    {
+      "political_lean": "Center",
+      "n": 259,
+      "false_positive_rate": 0.2081,
+      "false_negative_rate": 0.3182,
+      "flag_rate": 0.4093
+    },
+    {
+      "political_lean": "Left",
+      "n": 239,
+      "false_positive_rate": 0.1885,
+      "false_negative_rate": 0.3162,
+      "flag_rate": 0.431
+    },
+    {
+      "political_lean": "Right",
+      "n": 235,
+      "false_positive_rate": 0.2137,
+      "false_negative_rate": 0.3365,
+      "flag_rate": 0.4128
+    },
+    {
+      "political_lean": "Unknown",
+      "n": 267,
+      "false_positive_rate": 0.1987,
+      "false_negative_rate": 0.3423,
+      "flag_rate": 0.3895
+    }
+  ],
+  "sklearn_version": "1.9.0"
+}

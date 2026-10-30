@@ -1,0 +1,61 @@
+{
+  "rows": {
+    "train": 10269,
+    "valid": 1284,
+    "test": 1283
+  },
+  "valid": {
+    "accuracy": 0.6254,
+    "precision_fake": 0.6726,
+    "recall_fake": 0.4269,
+    "f1_fake": 0.5223,
+    "macro_f1": 0.6071,
+    "roc_auc": 0.6608
+  },
+  "test": {
+    "accuracy": 0.6212,
+    "precision_fake": 0.6042,
+    "recall_fake": 0.3651,
+    "f1_fake": 0.4552,
+    "macro_f1": 0.5824,
+    "roc_auc": 0.6547,
+    "confusion_matrix": {
+      "labels": [
+        "REAL",
+        "FAKE"
+      ],
+      "matrix": [
+        [
+          594,
+          133
+        ],
+        [
+          353,
+          203
+        ]
+      ]
+    }
+  },
+  "majority_baseline_test_accuracy": 0.5666,
+  "fairness_by_party": [
+    {
+      "party": "democrat",
+      "n": 410,
+      "flag_rate": 0.2098,
+      "false_positive_rate": 0.1667
+    },
+    {
+      "party": "republican",
+      "n": 580,
+      "flag_rate": 0.2966,
+      "false_positive_rate": 0.1943
+    },
+    {
+      "party": "none",
+      "n": 216,
+      "flag_rate": 0.2639,
+      "false_positive_rate": 0.1649
+    }
+  ],
+  "sklearn_version": "1.9.0"
+}

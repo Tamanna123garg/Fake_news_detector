@@ -1,0 +1,9 @@
+column_name,data_type,sample_value_1,sample_value_2,sample_value_3,nullable,description,allowed_values_or_range
+article_id,int64,1,2,3,No,Unique integer ID of the news item (1-5000). Rows 1-500 are the provided sample; 501-5000 are synthetic.,1 to 5000
+source,string (categorical),source_11,source_2,source_15,No,"Anonymised publisher/outlet identifier. Used for EDA only, not as a model feature.",source_1 ... source_20
+word_count,int64,1098,1222,1249,No,Number of words in the article body.,200 to 2000
+sentiment_score,float64,-0.181,-0.041,0.067,No,"Overall sentiment polarity of the article text: -1 = very negative, 0 = neutral, +1 = very positive.",-1.0 to 1.0
+exclamation_count,int64,7,13,13,No,Number of exclamation marks in the article - a sensationalism indicator.,0 to 15
+all_caps_pct,float64,0.063,0.118,0.215,No,Fraction of words written entirely in CAPITAL letters (0.10 = 10 %) - a sensationalism indicator.,0.0 to 0.30
+label,"string (categorical, TARGET)",REAL,FAKE,REAL,No,"Ground-truth class: REAL = credible article, FAKE = misleading / fabricated article.",REAL | FAKE
+political_lean,string (categorical),Unknown,Center,Unknown,No,"Political leaning of the outlet/article. Used ONLY for the fairness audit, never as a model input.",Left | Center | Right | Unknown

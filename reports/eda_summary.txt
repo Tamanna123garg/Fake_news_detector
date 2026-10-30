@@ -1,0 +1,16 @@
+rows=5000 cols=8 nulls=0 duplicates=0
+       word_count  sentiment_score  exclamation_count  all_caps_pct
+count    5000.000         5000.000           5000.000      5000.000
+mean     1093.265            0.012              7.086         0.149
+std       500.501            0.574              4.398         0.082
+min       200.000           -1.000              0.000         0.000
+25%       678.000           -0.476              3.000         0.083
+50%      1106.000            0.016              7.000         0.149
+75%      1501.000            0.505             11.000         0.216
+max      2000.000            1.000             15.000         0.300
+
+mean by label:
+       word_count  sentiment_score  exclamation_count  all_caps_pct
+label                                                              
+FAKE      936.348            0.025              8.440         0.176
+REAL     1217.461            0.003              6.013         0.127

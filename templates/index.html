@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fake News Detector - NLP decision support</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Fake News Detector</h1>
+    <p class="sub">NLP decision support: TF-IDF text model + stylometric ensemble, with LIME-style explanations</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="banner" role="note">
+    <strong>Human review required.</strong> This tool scores wording and writing style. It does <u>not</u> verify facts
+    and must not be used to flag political content without a human reviewer. See the <a href="#limits">model card limitations</a>.
+  </div>
+
+  <section class="card">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-mode="text" role="tab">Paste text</button>
+      <button class="tab" data-mode="sliders" role="tab">Enter style features</button>
+    </div>
+
+    <div id="mode-text">
+      <label for="txt">Paste a statement, headline or full article</label>
+      <textarea id="txt" rows="8" maxlength="20000" placeholder="Paste text here..."></textarea>
+      <div class="row">
+        <button id="go" class="primary">Analyse</button>
+        <button class="ghost" data-sample="short">Sample: short statement</button>
+        <button class="ghost" data-sample="sensational">Sample: sensational article</button>
+        <button class="ghost" data-sample="measured">Sample: measured article</button>
+        <span id="count" class="muted"></span>
+      </div>
+      <p class="muted small">Short statements use the TF-IDF text model (trained on LIAR). Articles of 200+ words also use the stylometric ensemble (trained on dataset.csv); the two probabilities are averaged.</p>
+    </div>
+
+    <div id="mode-sliders" hidden>
+      <div class="sliders">
+        <label>Word count <output id="o_wc">1000</output><input type="range" id="wc" min="200" max="2000" step="10" value="1000"></label>
+        <label>Sentiment score <output id="o_ss">0</output><input type="range" id="ss" min="-1" max="1" step="0.01" value="0"></label>
+        <label>Exclamation marks <output id="o_ex">5</output><input type="range" id="ex" min="0" max="15" step="1" value="5"></label>
+        <label>ALL-CAPS share <output id="o_cp">0.10</output><input type="range" id="cp" min="0" max="0.3" step="0.005" value="0.1"></label>
+      </div>
+      <div class="row"><button id="go2" class="primary">Analyse features</button></div>
+    </div>
+  </section>
+
+  <section id="result" class="card" hidden aria-live="polite">
+    <div class="verdict-row">
+      <div>
+        <div class="muted small">Result</div>
+        <div id="verdict" class="verdict"></div>
+      </div>
+      <div class="meter-wrap">
+        <div class="meter"><div id="needle"></div><span class="band"></span></div>
+        <div class="meter-labels"><span>REAL-style</span><span id="pf"></span><span>FAKE-style</span></div>
+      </div>
+    </div>
+    <div id="warnings"></div>
+    <div class="grid">
+      <div><h3>Extracted features</h3><table id="ftable"></table></div>
+      <div id="exstyle"><h3>Why? Style features <span class="muted small">(+ pushes toward FAKE)</span></h3><div id="bars_style"></div></div>
+      <div id="extext"><h3>Why? Words <span class="muted small">(+ pushes toward FAKE)</span></h3><div id="bars_text"></div></div>
+    </div>
+    <p class="muted small" id="foot"></p>
+  </section>
+
+  <section class="card" id="limits">
+    <h2>Model performance &amp; limitations</h2>
+    <div class="metrics" id="metrics"></div>
+    <ul>
+      <li>Accuracy is modest (about 62-64% on the LIAR benchmark): wrong answers are common. Treat output as a prompt for a human fact-checker, never as a verdict.</li>
+      <li>The text model is trained on short English-language U.S. political statements (PolitiFact, 2007-2016) and will not transfer well to other topics, languages or years.</li>
+      <li>The style model is trained on a dataset whose rows 501-5000 are <strong>synthetic</strong>; its metrics describe that data, not real-world news.</li>
+      <li>Neither model checks facts. Satire, opinion, or sensational-but-true writing may be mis-flagged.</li>
+      <li>Political leaning is <strong>not</strong> a model input; it is used only to audit for disparate error rates.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap muted small">HCLTech Career Shaper Programme 2025-26 &middot; Project 31 &middot; Fake News Detection Using NLP</footer>
+
+<script id="metrics-data" type="application/json">{{ metrics | tojson }}</script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
